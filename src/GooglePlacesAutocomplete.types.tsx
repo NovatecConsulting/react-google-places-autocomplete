@@ -1,5 +1,6 @@
-import { LoaderOptions } from '@googlemaps/js-api-loader';
-import { Props, OptionTypeBase } from 'react-select';
+import {LoaderOptions} from '@googlemaps/js-api-loader';
+import {OptionTypeBase, Props} from 'react-select';
+import {StylesConfig} from "react-select/src/styles";
 
 export type GooglePlacesAutocompleteHandle = {
   getSessionToken: () => google.maps.places.AutocompleteSessionToken | undefined;
@@ -20,7 +21,9 @@ export interface AutocompletionRequest {
   types?: string[];
 }
 
-export default interface GooglePlacesAutocompleteProps {
+export default interface GooglePlacesAutocompleteProps<
+    OptionType extends OptionTypeBase = { label: string; value: string },
+    IsMulti extends boolean = false> {
   apiKey?: string;
   apiOptions?: Partial<LoaderOptions>;
   autocompletionRequest?: AutocompletionRequest;
@@ -29,4 +32,5 @@ export default interface GooglePlacesAutocompleteProps {
   onLoadFailed?: (error: Error) => void;
   selectProps?: Props<OptionTypeBase>;
   withSessionToken?: boolean;
+  styles?: StylesConfig<OptionType, IsMulti>;
 }

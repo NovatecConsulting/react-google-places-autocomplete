@@ -13,11 +13,12 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   apiKey = '',
   apiOptions = {},
   autocompletionRequest = {},
-  debounce = 300,
+  debounce = 100,
   minLengthAutocomplete = 0,
   selectProps = {},
   onLoadFailed = console.error,
   withSessionToken = false,
+  styles = {},
 } : GooglePlacesAutocompleteProps, ref) : React.ReactElement => {
   const [placesService, setPlacesService] = useState<google.maps.places.AutocompleteService | undefined>(undefined);
   const [sessionToken, setSessionToken] = useState<google.maps.places.AutocompleteSessionToken | undefined>(undefined);
@@ -73,7 +74,7 @@ const GooglePlacesAutocomplete: React.ForwardRefRenderFunction<GooglePlacesAutoc
   }, []);
 
   return (
-    <AsyncSelect
+    <AsyncSelect styles={styles}
       {...selectProps}
       loadOptions={fetchSuggestions}
       getOptionValue={({ value }) => value.place_id}
